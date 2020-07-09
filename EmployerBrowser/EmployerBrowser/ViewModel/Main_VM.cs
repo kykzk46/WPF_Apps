@@ -154,9 +154,31 @@ namespace EmployerBrower.ViewModel
             };
             Employers.Add(empr2);
 
+            var empr3 = new Employer_VM()
+            {
+                Id = 3,
+                FirstName = "Amy",
+                LastName = "Gaga",
+                DateOfBirth = new DateTime(1977, 4, 9),
+                EmploymentType = DataModel.EmploymentTypes.ShortContract,
+                Sex = DataModel.Gender.Female,
+            };
+
+            Employers.Add(empr3);
+            var empr4 = new Employer_VM()
+            {
+                Id = 4,
+                FirstName = "Petter",
+                LastName = "Stark",
+                DateOfBirth = new DateTime(1967, 12, 31),
+                EmploymentType = DataModel.EmploymentTypes.Permanent,
+                Sex = DataModel.Gender.Male,
+            };
+            Employers.Add(empr4);
+
             var sc1 = new ShortContract_VM()
             {
-                EmployerId = 1,
+                EmployerId = 2,
                 StartDate = new DateTime(2020, 1, 1),
                 EndDate = new DateTime(2020, 2, 1),
                 WorkHourPerDay = 9,
@@ -165,7 +187,7 @@ namespace EmployerBrower.ViewModel
 
             var sc2 = new ShortContract_VM()
             {
-                EmployerId = 2,
+                EmployerId = 3,
                 StartDate = new DateTime(2020, 1, 10),
                 EndDate = new DateTime(2020, 3, 10),
                 WorkHourPerDay = 9,
@@ -189,7 +211,7 @@ namespace EmployerBrower.ViewModel
 
             var pe2 = new PermanentEmployment_VM()
             {
-                EmployerId = 2,
+                EmployerId = 4,
                 OnDutyTime = new DateTime(1, 1, 1, 17, 30, 0),
                 OffDutyTime = new DateTime(1, 1, 1, 01, 30, 0),
                 MondayOnDuty = true,
