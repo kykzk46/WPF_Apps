@@ -9,26 +9,26 @@ using System.Windows.Input;
 
 namespace HierarchicalListboxes.viewmodel
 {
-	class ListboxItem_VM : ObservableObject
-	{
-		/// <summary>
-		/// </summary>
-		/// <param name="items"></param>
-		/// <param name="hierarchyLevel">Determine the useful character of ListBoxSelectedItem</param>
-		/// <param name="childListbox"></param>
-		public ListboxItem_VM(List<string> items, int hierarchyLevel)
-		{
-			_allItems = items;
-			_ListBoxVisibleItems = new ObservableCollection<string>(_allItems);
-			_hierarchyLevel = hierarchyLevel;
-		}
+    class ListboxItem_VM : ObservableObject
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="hierarchyLevel">Determine the useful character of ListBoxSelectedItem</param>
+        /// <param name="childListbox"></param>
+        public ListboxItem_VM(List<string> items, int hierarchyLevel)
+        {
+            _allItems = items;
+            _ListBoxVisibleItems = new ObservableCollection<string>(_allItems);
+            _hierarchyLevel = hierarchyLevel;
+        }
 
-		int _hierarchyLevel;
-		List<string> _allItems;
-		public ListboxItem_VM ChildListbox;
+        int _hierarchyLevel;
+        List<string> _allItems;
+        public ListboxItem_VM ChildListbox;
 
-		ObservableCollection<string> _ListBoxVisibleItems;
-        public ObservableCollection<string> ListBoxVisibleItems 
+        ObservableCollection<string> _ListBoxVisibleItems;
+        public ObservableCollection<string> ListBoxVisibleItems
         {
             get { return _ListBoxVisibleItems; }
             set
@@ -38,14 +38,22 @@ namespace HierarchicalListboxes.viewmodel
                     _ListBoxVisibleItems = value;
                     RaisePropertyChanged("ListBoxVisibleItems");
 
-					if (ChildListbox != null)
-						ChildListbox.SetFilter4ItemSources(_ListBoxSelectedItem.Substring(0, _hierarchyLevel));
+                    if (ChildListbox != null)
+                    {
+                        ChildListbox.SetFilter4ItemSources(
+                            _hierarchyLevel,
+                            (from i in _ListBoxVisibleItems
+                             select i.Substring(0, _hierarchyLevel))
+                            .Distinct<string>()
+                            .ToList()
+                            );
+                    }
                 }
             }
         }
 
-		string _ListBoxSelectedItem = "";
-        public string ListBoxSelectedItem 
+        string _ListBoxSelectedItem = "";
+        public string ListBoxSelectedItem
         {
             get { return _ListBoxSelectedItem; }
             set
@@ -55,13 +63,16 @@ namespace HierarchicalListboxes.viewmodel
                     _ListBoxSelectedItem = value;
                     RaisePropertyChanged("ListBoxSelectedItem");
 
-					if (ChildListbox != null)
-						ChildListbox.SetFilter4ItemSources(_ListBoxSelectedItem.Substring(0, _hierarchyLevel));
+                    if (ChildListbox != null)
+                        ChildListbox.SetFilter4ItemSources(
+                            _hierarchyLevel,
+                            new List<string> { _ListBoxSelectedItem.Substring(0, _hierarchyLevel) }
+                            );
                 }
             }
         }
 
-		RelayCommand<object> _ListBoxSelectionChanged = null;
+        RelayCommand<object> _ListBoxSelectionChanged = null;
         public ICommand ListBoxSelectionChanged
         {
             get
@@ -84,12 +95,20 @@ namespace HierarchicalListboxes.viewmodel
 
         }
 
-		public void SetFilter4ItemSources(string[] filter)
-		{
-			ListBoxVisibleItems = new ObservableCollection<string>(
-				from i in _allItems
-				where i.StartsWith(filter)
-				select i);
-		}
-	}
+        public void SetFilter4ItemSources(int filterLength, List<string> filter)
+        {
+            if (filterLength > 0)
+            {
+                ListBoxVisibleItems = new ObservableCollection<string>(
+                    from i in _allItems
+                    where filter.Contains(i.Substring(0, filterLength))
+                    select i
+                 );
+            }
+            else
+            {
+                ListBoxVisibleItems = new ObservableCollection<string>(_allItems);
+            }
+        }
+    }
 }
