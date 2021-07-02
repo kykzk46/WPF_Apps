@@ -152,5 +152,30 @@ namespace HierarchicalListboxes.viewmodel
 			_Listbox3Vm.ChildListbox = _Listbox4Vm;
 		}
 
+        RelayCommand<object> _Reset = null;
+        public ICommand Reset
+        {
+            get
+            {
+                if (_Reset == null)
+                {
+                    _Reset = new RelayCommand<object>(p => OnReset(p), (p) => CanReset(p));
+                }
+
+                return _Reset;
+            }
+        }
+        bool CanReset(object param)
+        {
+            return true;
+        }
+
+        private void OnReset(object param)
+        {
+			_Listbox1Vm.ListBoxSelectedItem = null;
+			_Listbox2Vm.ListBoxSelectedItem = null;
+			_Listbox3Vm.ListBoxSelectedItem = null;
+			_Listbox4Vm.ListBoxSelectedItem = null;
+        }
 	}
 }

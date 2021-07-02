@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:HierarchicalListboxes"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-	<ItemsControl>
+
+    <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Bottom" 
+                    Margin="10"
+                    HorizontalAlignment="Right">
+            <Button Content="Reset" Command="{Binding Reset}"></Button>
+        </StackPanel>
+        
+	<ItemsControl DockPanel.Dock="Bottom">
 		<ItemsControl.ItemsPanel>
 			<ItemsPanelTemplate>
 				<UniformGrid Rows="1"/>
@@ -31,4 +39,6 @@
 					 />
 		</ItemsControl.Items>
 	</ItemsControl>
+    
+    </DockPanel>        
 </Window>
