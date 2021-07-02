@@ -64,35 +64,22 @@ namespace HierarchicalListboxes.viewmodel
                     RaisePropertyChanged("ListBoxSelectedItem");
 
                     if (ChildListbox != null)
-                        ChildListbox.SetFilter4ItemSources(
-                            _hierarchyLevel,
-                            new List<string> { _ListBoxSelectedItem.Substring(0, _hierarchyLevel) }
-                            );
+                    {
+                        if (_ListBoxSelectedItem != null)
+                        {
+
+                            ChildListbox.SetFilter4ItemSources(
+                                _hierarchyLevel,
+                                new List<string> { _ListBoxSelectedItem.Substring(0, _hierarchyLevel) }
+                                );
+                        }
+                        else
+                        {
+                            ChildListbox.SetFilter4ItemSources(0, null);
+                        }
+                    }
                 }
             }
-        }
-
-        RelayCommand<object> _ListBoxSelectionChanged = null;
-        public ICommand ListBoxSelectionChanged
-        {
-            get
-            {
-                if (_ListBoxSelectionChanged == null)
-                {
-                    _ListBoxSelectionChanged = new RelayCommand<object>(p => OnListBoxSelectionChanged(p), (p) => CanListBoxSelectionChanged(p));
-                }
-
-                return _ListBoxSelectionChanged;
-            }
-        }
-        bool CanListBoxSelectionChanged(object param)
-        {
-            return true;
-        }
-
-        private void OnListBoxSelectionChanged(object param)
-        {
-
         }
 
         public void SetFilter4ItemSources(int filterLength, List<string> filter)
