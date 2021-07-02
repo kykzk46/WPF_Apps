@@ -84,7 +84,7 @@ namespace HierarchicalListboxes.viewmodel
 
         }
 
-		public void SetFilter4ItemSources(string filter)
+		public void SetFilter4ItemSources(string[] filter)
 		{
 			ListBoxVisibleItems = new ObservableCollection<string>(
 				from i in _allItems
