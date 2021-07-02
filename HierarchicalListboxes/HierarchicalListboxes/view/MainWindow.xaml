@@ -1,0 +1,34 @@
+﻿<Window x:Class="HierarchicalListboxes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HierarchicalListboxes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+	<ItemsControl>
+		<ItemsControl.ItemsPanel>
+			<ItemsPanelTemplate>
+				<UniformGrid Rows="1"/>
+			</ItemsPanelTemplate>
+		</ItemsControl.ItemsPanel>
+		<ItemsControl.Items>
+			<ListBox Margin="10" 
+					 ItemsSource="{Binding Listbox1Vm.ListBoxVisibleItems}"
+					 SelectedItem="{Binding Listbox1Vm.ListBoxSelectedItem}"
+					 />
+			<ListBox Margin="10" 
+					 ItemsSource="{Binding Listbox2Vm.ListBoxVisibleItems}"
+					 SelectedItem="{Binding Listbox2Vm.ListBoxSelectedItem}"
+					 />
+			<ListBox Margin="10" 
+					 ItemsSource="{Binding Listbox3Vm.ListBoxVisibleItems}"
+					 SelectedItem="{Binding Listbox3Vm.ListBoxSelectedItem}"
+					 />
+			<ListBox Margin="10"
+					 ItemsSource="{Binding Listbox4Vm.ListBoxVisibleItems}"
+					 SelectedItem="{Binding Listbox4Vm.ListBoxSelectedItem}"
+					 />
+		</ItemsControl.Items>
+	</ItemsControl>
+</Window>
