@@ -1,4 +1,4 @@
-# WpfGallery
+# WPF_Apps
  A collection of WPF demo apps
 
 ## 1. EmployerBrowser
