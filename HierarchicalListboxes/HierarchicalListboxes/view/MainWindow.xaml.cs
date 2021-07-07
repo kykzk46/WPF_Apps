@@ -24,7 +24,6 @@ namespace HierarchicalListboxes
 		public MainWindow()
 		{
 			InitializeComponent();
-			this.DataContext = new viewmodel.MainWindow_VM();
 		}
 	}
 }
