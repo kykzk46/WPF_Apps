@@ -6,11 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows;
 
 namespace MVVMDialogbox.Dialog.DialogYesNo
 {
 	class DialogYesNoViewModel : DialogViewModelBase
 	{
+		public DialogYesNoViewModel(string message) : base(message)
+		{
+		}
+
 		#region Command
 
 		RelayCommand<object> _YesCommand = null;
@@ -32,6 +37,7 @@ namespace MVVMDialogbox.Dialog.DialogYesNo
 		}
 		void OnYesCommandExecute(object param)
 		{
+			CloseDialogWithResult(param as Window, DialogResult.Yes);
 		}
 
 		RelayCommand<object> _NoCommand = null;
@@ -53,6 +59,7 @@ namespace MVVMDialogbox.Dialog.DialogYesNo
 		}
 		void OnNoCommandExecute(object param)
 		{
+			CloseDialogWithResult(param as Window, DialogResult.No);
 		}
 		#endregion
 	}

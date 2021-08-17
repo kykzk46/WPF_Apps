@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,8 +33,8 @@ namespace MVVMDialogbox.ViewModel
 		}
 		void OnOpenDialogCommandExecute(object param)
 		{
-			var vm = new Dialog.DialogYesNo.DialogYesNoViewModel();
-			var result = Dialog.DialogService.DialogService.OpenDialog(vm);
+			var vm = new Dialog.DialogYesNo.DialogYesNoViewModel("Question");
+			var result = Dialog.DialogService.DialogService.OpenDialog(vm, param as Window);
 		}
 		#endregion
 	}
